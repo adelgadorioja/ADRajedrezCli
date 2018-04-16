@@ -1,5 +1,16 @@
 #login {
     padding: 2em;
-    background-color: #333;
     margin-top: 2em;
+    box-shadow: 0 0 5px #333;
+}
+
+#login p {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+#login a, #login a:hover {
+    color: #007bff;
+    text-decoration: none;
 }
