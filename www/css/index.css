@@ -1,16 +1,21 @@
-#login {
+#login, #register, #en_espera {
     padding: 2em;
     margin-top: 2em;
+    margin-bottom: 2em;
     box-shadow: 0 0 5px #333;
 }
 
-#login p {
+#login p, #register p {
     text-align: center;
     margin-top: 1em;
     margin-bottom: 0;
 }
 
-#login a, #login a:hover {
+a, a:hover {
     color: #007bff;
     text-decoration: none;
+}
+
+h4 {
+    margin-bottom: 1em;
 }
