@@ -1,8 +1,13 @@
-#login, #register, #en_espera {
+#login, #register, #en_espera{
     padding: 2em;
     margin-top: 2em;
     margin-bottom: 2em;
     box-shadow: 0 0 5px #333;
+}
+
+#tablero {
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 #login p, #register p {
@@ -18,4 +23,27 @@ a, a:hover {
 
 h4 {
     margin-bottom: 1em;
+}
+
+.color-1 {
+    background-color: black;
+}
+
+.casilla {
+    padding: 0;
+}
+
+.blanca {
+    background-color: white;
+    border: 2px solid #007bff;
+}
+
+.negra {
+    background-color: black;
+    border: 2px solid #007bff;
+}
+
+.PEON {
+    height: 100%;
+    border-radius: 50%;
 }
