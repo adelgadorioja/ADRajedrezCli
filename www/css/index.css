@@ -1,4 +1,4 @@
-#login, #register, #en_espera{
+#login, #register, #en_espera, #partidas_disponibles{
     padding: 2em;
     margin-top: 2em;
     margin-bottom: 2em;
@@ -41,6 +41,17 @@ h4 {
 .negra {
     background-color: black;
     border: 2px solid #007bff;
+}
+
+#marcador {
+    margin-top: 1em;
+    background-color: #007bff;
+    color: white;
+    padding-top: 1em;
+}
+
+#marcador p:last-child {
+    text-align: right;
 }
 
 .PEON {

@@ -15,11 +15,29 @@ $(function () {
         success: function (response) {
             if (response['error'] == null && response['estado'] == 'OK') {
                 response['usuarios'].forEach(usuario => {
-                    $('.list-group').append($('<button id="' + usuario['id'] + '" class="list-group-item list-group-item-action">' + usuario['name'] + '</button>'));
-                    $('.list-group-item:last').click(crearPartida);
+                    $('#en_espera .list-group').append($('<button id="' + usuario['id'] + '" class="list-group-item list-group-item-action">' + usuario['name'] + '</button>'));
+                    $('#en_espera .list-group-item:last').click(crearPartida);
                 });
             } else {
-                $('.list-group').append($('<p>Ha ocurrido un error al recuperar los usuarios.</p>'));
+                $('#en_espera .list-group').append($('<p>Ha ocurrido un error al recuperar los usuarios.</p>'));
+            }
+        }
+    });
+
+    $.ajax({
+        url: 'https://glacial-brushlands-85257.herokuapp.com/api/partidas-disponibles',
+        data: {
+            "api_token": localStorage.getItem('api_token'),
+        },
+        type: 'get',
+        success: function (response) {
+            if (response['error'] == null && response['estado'] == 'OK') {
+                response['partidas'].forEach(partida => {
+                    $('#partidas_disponibles .list-group').append($('<button id="' + partida['id_partida'] + '" class="list-group-item list-group-item-action">Partida ' + partida['id_partida'] + '</button>'));
+                    $('#partidas_disponibles .list-group-item:last').click(obtenerPartida);
+                });
+            } else {
+                $('#partidas_disponibles .list-group').append($('<p>Ha ocurrido un error al recuperar los usuarios.</p>'));
             }
         }
     });
@@ -36,6 +54,7 @@ function crearPartida() {
         type: 'post',
         success: function (response) {
             $('#en_espera').remove();
+            $('#partidas_disponibles').remove();
             partida = response['partida']['id_partida'];
             crearTablero();
             colocarPiezas();
@@ -43,11 +62,41 @@ function crearPartida() {
     });
 }
 
+function obtenerPartida() {
+    var idPartida = $(this).attr('id');
+    $.ajax({
+        url: 'https://glacial-brushlands-85257.herokuapp.com/api/jugar',
+        data: {
+            "api_token": localStorage.getItem('api_token')
+        },
+        type: 'post',
+        success: function (response) {
+            $('#en_espera').remove();
+            $('#partidas_disponibles').remove();
+            partida = idPartida;
+            crearTablero();
+            colocarPiezas();
+        }
+    });
+}
+
 function crearTablero() {
+    $('.container:last').append($('<div id="marcador" class="row"></div>'));
     $('.container:last').append($('<div id="tablero"></div>'));
 
     var fila = 0;
     var columna = 0;
+
+    $('#marcador').append($('<p class="col-6">Partida '+partida+'</p>'));
+    
+    // Comprobar turno
+    if(true) {
+        turnoDe = "Es tu turno";
+    } else {
+        turnoDe = "Es el turno del rival";
+    }
+    
+    $('#marcador').append($('<p class="col-6">'+ turnoDe +'</p>'));
 
     for (let casilla = 0; casilla < 64; casilla++) {
         if (casilla % 8 == 0) {
@@ -85,9 +134,9 @@ function colocarPiezas() {
             var jugadorBlancas = response['partida']['jugador1'];
             piezas.forEach(pieza => {
                 if(pieza['id_usuario'] == jugadorBlancas) {
-                    colorPieza = "blanca";
-                } else {
                     colorPieza = "negra";
+                } else {
+                    colorPieza = "blanca";
                 }
                 var piezaGenerada = $('<div id_pieza="' + pieza['id_pieza'] + '" class="pieza ' + pieza['tipo'] +" "+ colorPieza +'"></div>');
                 $('.casilla[fila="' + pieza['fila'] + '"][columna="' + pieza['columna'] + '"]').append(piezaGenerada);
