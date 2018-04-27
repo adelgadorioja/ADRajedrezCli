@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src * 'unsafe-eval' 'unsafe-inline';">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>ADR Ajedrez</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">ADR Ajedrez</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="register">
+            <form id="formularioRegister">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label">Contraseña</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                    </div>
+                </div>
+                <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Repetir contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Repetir constraseña">
+                        </div>
+                    </div>
+                <div class="row">
+                    <input class="col-md-12 btn btn-primary" name="botonRegister" type="button" value="Aceptar">
+                </div>
+            </form>
+            <p>¿Ya tienes cuenta? <a href="index.html">Logueate</a></p>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
+</body>
+
+</html>

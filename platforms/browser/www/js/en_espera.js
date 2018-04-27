@@ -1,5 +1,6 @@
 var partida;
 var piezaSeleccionada;
+var turnoDe;
 
 $(function () {
     if (localStorage.getItem('api_token') == null) {
@@ -60,6 +61,7 @@ function crearPartida() {
             colocarPiezas();
         }
     });
+    deQuienEsElTurno();
 }
 
 function obtenerPartida() {
@@ -89,14 +91,7 @@ function crearTablero() {
 
     $('#marcador').append($('<p class="col-6">Partida '+partida+'</p>'));
     
-    // Comprobar turno
-    if(true) {
-        turnoDe = "Es tu turno";
-    } else {
-        turnoDe = "Es el turno del rival";
-    }
-    
-    $('#marcador').append($('<p class="col-6">'+ turnoDe +'</p>'));
+    $('#marcador').append($('<p id="turnoDe" class="col-6"></p>'));
 
     for (let casilla = 0; casilla < 64; casilla++) {
         if (casilla % 8 == 0) {
@@ -119,9 +114,13 @@ function crearTablero() {
         casillaTablero.innerHeight(casillaTablero.innerWidth());
         casillaTablero.click(comprobarMovimiento);
     }
+
+    setInterval(eliminarPiezas, 3000);
+    setInterval(colocarPiezas, 3000);
 }
 
 function colocarPiezas() {
+    deQuienEsElTurno();
     var piezas;
     $.ajax({
         url: 'https://glacial-brushlands-85257.herokuapp.com/api/partida/' + partida,
@@ -171,6 +170,28 @@ function comprobarMovimiento() {
                 }
             }
         });
+    }
+}
+
+function deQuienEsElTurno() {
+    $.ajax({
+        url: 'https://glacial-brushlands-85257.herokuapp.com/api/de-quien-es-el-turno',
+        data: {
+            "api_token": localStorage.getItem('api_token'),
+            "id_partida": partida
+        },
+        type: 'post',
+        success: function (response) {
+            if(response['turno'] != null && response['turno'] == 1) {
+                turnoDe = "Es tu turno";
+            } else {
+                turnoDe = "Es el turno del rival";
+            }
+        }
+    });
+
+    if($('#turnoDe') != null) {
+        $('#turnoDe').text(turnoDe);
     }
 }
 
